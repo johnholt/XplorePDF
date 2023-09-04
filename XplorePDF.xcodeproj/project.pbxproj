@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		753ED9652A8D684A009E1BD6 /* PDFDocView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753ED9642A8D684A009E1BD6 /* PDFDocView.swift */; };
 		75B09F6B2A7709D600813913 /* XplorePDFApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B09F6A2A7709D600813913 /* XplorePDFApp.swift */; };
 		75B09F6D2A7709D600813913 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B09F6C2A7709D600813913 /* ContentView.swift */; };
 		75B09F6F2A7709D700813913 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 75B09F6E2A7709D700813913 /* Assets.xcassets */; };
@@ -14,6 +15,8 @@
 		75B09F7D2A7709D700813913 /* XplorePDFTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B09F7C2A7709D700813913 /* XplorePDFTests.swift */; };
 		75B09F872A7709D800813913 /* XplorePDFUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B09F862A7709D800813913 /* XplorePDFUITests.swift */; };
 		75B09F892A7709D800813913 /* XplorePDFUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B09F882A7709D800813913 /* XplorePDFUITestsLaunchTests.swift */; };
+		75F6106E2A88222E003EC1BF /* DATAK_2005.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 75F6106D2A88222E003EC1BF /* DATAK_2005.pdf */; };
+		75F610702A8822D3003EC1BF /* Published-PMIHP-paper.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 75F6106F2A8822D3003EC1BF /* Published-PMIHP-paper.pdf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +37,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		753ED9642A8D684A009E1BD6 /* PDFDocView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFDocView.swift; sourceTree = "<group>"; };
 		75B09F672A7709D600813913 /* XplorePDF.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XplorePDF.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		75B09F6A2A7709D600813913 /* XplorePDFApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XplorePDFApp.swift; sourceTree = "<group>"; };
 		75B09F6C2A7709D600813913 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -45,6 +49,9 @@
 		75B09F822A7709D800813913 /* XplorePDFUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = XplorePDFUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		75B09F862A7709D800813913 /* XplorePDFUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XplorePDFUITests.swift; sourceTree = "<group>"; };
 		75B09F882A7709D800813913 /* XplorePDFUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XplorePDFUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		75B09F952A770D5800813913 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		75F6106D2A88222E003EC1BF /* DATAK_2005.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = DATAK_2005.pdf; sourceTree = "<group>"; };
+		75F6106F2A8822D3003EC1BF /* Published-PMIHP-paper.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "Published-PMIHP-paper.pdf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,8 +102,10 @@
 		75B09F692A7709D600813913 /* XplorePDF */ = {
 			isa = PBXGroup;
 			children = (
+				75B09F952A770D5800813913 /* Info.plist */,
 				75B09F6A2A7709D600813913 /* XplorePDFApp.swift */,
 				75B09F6C2A7709D600813913 /* ContentView.swift */,
+				753ED9642A8D684A009E1BD6 /* PDFDocView.swift */,
 				75B09F6E2A7709D700813913 /* Assets.xcassets */,
 				75B09F702A7709D700813913 /* XplorePDF.entitlements */,
 				75B09F712A7709D700813913 /* Preview Content */,
@@ -107,6 +116,8 @@
 		75B09F712A7709D700813913 /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
+				75F6106F2A8822D3003EC1BF /* Published-PMIHP-paper.pdf */,
+				75F6106D2A88222E003EC1BF /* DATAK_2005.pdf */,
 				75B09F722A7709D700813913 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
@@ -233,6 +244,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				75F6106E2A88222E003EC1BF /* DATAK_2005.pdf in Resources */,
+				75F610702A8822D3003EC1BF /* Published-PMIHP-paper.pdf in Resources */,
 				75B09F732A7709D700813913 /* Preview Assets.xcassets in Resources */,
 				75B09F6F2A7709D700813913 /* Assets.xcassets in Resources */,
 			);
@@ -260,6 +273,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				75B09F6D2A7709D600813913 /* ContentView.swift in Sources */,
+				753ED9652A8D684A009E1BD6 /* PDFDocView.swift in Sources */,
 				75B09F6B2A7709D600813913 /* XplorePDFApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -414,11 +428,12 @@
 				CODE_SIGN_ENTITLEMENTS = XplorePDF/XplorePDF.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"XplorePDF/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "XplorePDF/Preview\\ Content";
 				DEVELOPMENT_TEAM = X522X9J38T;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = XplorePDF/Info.plist;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -452,11 +467,12 @@
 				CODE_SIGN_ENTITLEMENTS = XplorePDF/XplorePDF.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"XplorePDF/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "XplorePDF/Preview\\ Content";
 				DEVELOPMENT_TEAM = X522X9J38T;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = XplorePDF/Info.plist;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
