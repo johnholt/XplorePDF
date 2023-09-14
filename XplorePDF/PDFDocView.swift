@@ -10,19 +10,21 @@ import PDFKit
 
 #if os(macOS)
 typealias ViewRepresentable = NSViewRepresentable
-typealias ViewRepresentableContext = NSViewRepresentableContext
+typealias ViewRepContext = NSViewRepresentableContext
 #else
 typealias ViewRepresentable = UIViewRepresentable
-typealias ViewRepresentableContext = UIViewRepresentableContext
+typealias ViewRepContext = UIViewRepresentableContext
 #endif
 
 
 struct PDFDocView: View {
-   @ObservedObject var doc: MyDocument
+   @Binding var doc: MyDocument
    @State var workTitle = ""
    @State var workAuthors = ""
    @State var workAuthorKeywords = ""
    @State var workAbstract = ""
+   @StateObject var tracker = Tracker()
+   
    var body: some View {
       NavigationStack {
          VStack(alignment: .leading) {
@@ -38,7 +40,7 @@ struct PDFDocView: View {
             TextEditor(text: $workAbstract)
                .padding(2)
                .border(Color.cyan, width: 2)
-            PDFViewRepresentable(doc: doc.doc)
+            PDFViewRepresentable(doc: doc.doc, tracker: tracker)
          }
       }.onAppear(perform: {getExtract()})
    }
@@ -61,42 +63,59 @@ struct PDFDocView: View {
 // Wrapper for the PDFKit PDFView
 struct PDFViewRepresentable: ViewRepresentable {
    let doc: PDFDocument
+   var tracker : Tracker
 
+   // Platform specific interface shim
 #if os(macOS)
-   func makeNSView(context: ViewRepresentableContext<PDFViewRepresentable>)
-   -> PDFView {
-      let pdfView = PDFView()
-      pdfView.document = self.doc
-      return pdfView
+   func makeNSView(context: ViewRepContext<PDFViewRepresentable>) -> PDFView {
+      return makeView(ctx: context)
+   }
+   func updateNSView(_ v: PDFView, context: ViewRepContext<PDFViewRepresentable>) {
+      updateView(v, ctx: context)
    }
 #else
-   func makeUIView(context: ViewRepresentableContext<PDFViewRepresentable>)
-   -> PDFView {
-      let pdfView = PDFView()
-      pdfView.document = self.doc
-      return pdfView
+   func makeUIView(context: ViewRepContext<PDFViewRepresentable>) -> PDFView {
+      return makeView(ctx: context)
+   }
+   func updateUIView(_ v: PDFView, context: ViewRepContext<PDFViewRepresentable>) {
+      updateView(v, ctx: context)
    }
 #endif
    
-#if os(macOS)
-   func updateNSView(_ nsView: PDFView,
-                     context: ViewRepresentableContext<PDFViewRepresentable>) {
-      // things to do for updates?
+   // Generic helpers for UIkit or AppKit Views for SwiftUI compatibility
+   func makeView(ctx: ViewRepContext<PDFViewRepresentable>) -> PDFView {
+      let pdfView = PDFView()
+      pdfView.document = self.doc
+      return pdfView
    }
-#else
-   func updateUIView(_ uiView: PDFView,
-                     context: ViewRepresentableContext<PDFViewRepresentable>) {
+   
+   func updateView(_ view: PDFView,
+                   ctx: ViewRepContext<PDFViewRepresentable>) {
       // things to do for updates?
+      tracker.update()
    }
-#endif
 }
 
+// Inspection class for learning how ViewRepresentatable works with SwiftUI
+class Tracker : ObservableObject {
+   var updated = 0
+   
+   func update() -> Void {
+      self.updated += 1
+   }
+}
+
+// Gettiing data into Preview the old way
 struct PDFDocView_Previews: PreviewProvider {
    static var previews: some View {
-      PDFDocView(doc: work.docs[0])
+      PDFDocView(doc: boundDoc)
    }
+
    static let url = Bundle.main.url(forResource: "DATAK_2005",
                                     withExtension: "pdf")
    static let urls = [url!]
-   static let work = getDocuments(urlList: urls)
+   static let work = getDocuments(urlList: urls, prevCount: 0)
+   static var workDoc = work.docs.isEmpty ? MyDocument() : work.docs[0]
+   static let boundDoc = Binding<MyDocument>(get: {return workDoc},
+                                             set: {d in workDoc = d})
 }

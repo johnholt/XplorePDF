@@ -9,9 +9,9 @@ import SwiftUI
 import PDFKit
 
 struct ContentView: View {
-   @State var showFileImport = false
-   @StateObject var docList: MyDocList = MyDocList()
-   @State var currentStatus : String = "No Docs"
+   @State private var showFileImport = false
+   @ObservedObject var docList: MyDocList
+   @State private var currentStatus : String = "No Docs"
    
    var body: some View {
       NavigationStack {
@@ -23,7 +23,7 @@ struct ContentView: View {
                   Button("Import", action: {showFileImport=true})
                }
                Spacer()
-               ForEach(docList.docs, id: \.id) { doc in
+               ForEach($docList.docs, id: \.id) { $doc in
                   VStack {
                      HStack {
                         Text(doc.documentPathLast)
@@ -44,9 +44,15 @@ struct ContentView: View {
                         Text(doc.docTitle)
                         Spacer()
                         NavigationLink {
-                           PDFDocView(doc: doc)
+                           PDFDocView(doc:  $doc)
                         } label: {
-                           Label("PDF Content", systemImage: "doc.text")
+                           Label("PDF Extraction", systemImage: "doc.text")
+                        }
+                        Spacer()
+                        NavigationLink {
+                           PDFTextView(doc: $doc)
+                        } label: {
+                           Label("PDF Text", systemImage: "doc.text")
                         }
                      }
                      Spacer()
@@ -66,7 +72,8 @@ struct ContentView: View {
       currentStatus = ""
       switch rslt {
          case .success(let urls):
-            let newList = getDocuments(urlList: urls)
+            let newList = getDocuments(urlList: urls,
+                                       prevCount: UInt32(docList.docs.count))
             for url in newList.failed {
                currentStatus += firstURL
                ? "Failed to read: "
@@ -105,7 +112,8 @@ struct AttributeListView: View {
 
 
 // Data retrieval functions
-func getDocuments(urlList: [URL]) -> (docs: [MyDocument], failed: [URL]) {
+func getDocuments(urlList: [URL], prevCount: UInt32)
+-> (docs: [MyDocument], failed: [URL]) {
    var resultDocs : [MyDocument] = []
    var failures: [URL] = []
    for url in urlList {
@@ -126,6 +134,10 @@ func getDocuments(urlList: [URL]) -> (docs: [MyDocument], failed: [URL]) {
          failures.append(url)
          continue
       }
+      if !url.startAccessingSecurityScopedResource() {
+         failures.append(url)
+         continue
+      }
       if let doc = PDFDocument(url: url) {
          if let workAttrs = doc.documentAttributes {
             for (attrName, attrValue) in workAttrs {
@@ -137,7 +149,7 @@ func getDocuments(urlList: [URL]) -> (docs: [MyDocument], failed: [URL]) {
                                                          value: value))
             }
          }
-         let id : UInt32 = UInt32(resultDocs.count) + 1
+         let id = prevCount + 1
          let path = doc.documentURL?.path ?? "No URL"
          let pathLast = doc.documentURL?.lastPathComponent ?? ""
          let pathExt = doc.documentURL?.pathExtension ?? ""
@@ -152,6 +164,7 @@ func getDocuments(urlList: [URL]) -> (docs: [MyDocument], failed: [URL]) {
       } else {
          failures.append(url)
       }
+      url.stopAccessingSecurityScopedResource()
    }
    return (resultDocs, failures)
 }
@@ -169,7 +182,7 @@ struct DocExtract {
    var docAbstract: String = ""
    var docAuthorKeywords : String = ""
 }
-class MyDocument : Identifiable, ObservableObject {
+struct MyDocument : Identifiable {
    let id : UInt32
    var documentPath : String
    var documentPathLast : String
@@ -177,11 +190,10 @@ class MyDocument : Identifiable, ObservableObject {
    var fileAttributes : [DisplayableAttribute]
    var pdfAttributes : [DisplayableAttribute]
    var doc: PDFDocument
-   //@Published var extract : DocExtract = DocExtract()
-   @Published var docTitle : String = ""
-   @Published var docAuthors : String = ""
-   @Published var docAbstract: String = ""
-   @Published var docAuthorKeywords : String = ""
+   var docTitle : String = ""
+   var docAuthors : String = ""
+   var docAbstract: String = ""
+   var docAuthorKeywords : String = ""
 
    init(id: UInt32, documentPath: String, documentPathLast: String,
         documentPathExt: String, fileAttributes: [DisplayableAttribute],
@@ -194,33 +206,44 @@ class MyDocument : Identifiable, ObservableObject {
       self.pdfAttributes = pdfAttributes
       self.doc = doc
    }
+   init() {
+      self.id = 0
+      self.documentPath = ""
+      self.documentPathLast = ""
+      self.documentPathExt = ""
+      self.fileAttributes = []
+      self.pdfAttributes = []
+      self.doc = PDFDocument()
+   }
 }
 class MyDocList: ObservableObject {
-   @Published var docs : [MyDocument]
+   @Published var docs : Array<MyDocument>
    
    init(docs: [MyDocument]) {
       self.docs = docs
    }
    init() {
-      docs = []
+      docs = Array()
    }
    
-   func append(docs: [MyDocument]) {
-      self.docs += docs
+   func append(docs newDocs: [MyDocument]) {
+      self.docs += newDocs
    }
    func clear() {
-      self.docs = []
+      self.docs.removeAll()
    }
 }
 
 // Previews
 struct ContentView_Previews: PreviewProvider {
    static var previews: some View {
-      ContentView(docList: MyDocList(docs: work.docs))
+      ContentView(docList: docList)
    }
    
    static let urls = Bundle.main.urls(
       forResourcesWithExtension: "pdf", subdirectory: "") ?? []
    
-   static let work = getDocuments(urlList: urls)
+   static var work = getDocuments(urlList: urls, prevCount: 0)
+   
+   static var docList = MyDocList(docs: work.docs)
 }
