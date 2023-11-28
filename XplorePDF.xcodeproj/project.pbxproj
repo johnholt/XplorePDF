@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		750E2FB42AF1A3670012D386 /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750E2FB32AF1A3670012D386 /* DataModel.swift */; };
 		753ED9652A8D684A009E1BD6 /* PDFDocView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753ED9642A8D684A009E1BD6 /* PDFDocView.swift */; };
 		755C3B282ABF81F900CE5E6B /* PDFTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755C3B272ABF81F900CE5E6B /* PDFTextView.swift */; };
 		75B09F6B2A7709D600813913 /* XplorePDFApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B09F6A2A7709D600813913 /* XplorePDFApp.swift */; };
@@ -38,6 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		750E2FB32AF1A3670012D386 /* DataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
 		753ED9642A8D684A009E1BD6 /* PDFDocView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFDocView.swift; sourceTree = "<group>"; };
 		755C3B272ABF81F900CE5E6B /* PDFTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFTextView.swift; sourceTree = "<group>"; };
 		75711DAD2AA7CBC100BA5E80 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
@@ -108,6 +110,7 @@
 				75B09F952A770D5800813913 /* Info.plist */,
 				75B09F6A2A7709D600813913 /* XplorePDFApp.swift */,
 				75B09F6C2A7709D600813913 /* ContentView.swift */,
+				750E2FB32AF1A3670012D386 /* DataModel.swift */,
 				75711DAD2AA7CBC100BA5E80 /* README.md */,
 				753ED9642A8D684A009E1BD6 /* PDFDocView.swift */,
 				755C3B272ABF81F900CE5E6B /* PDFTextView.swift */,
@@ -277,6 +280,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				750E2FB42AF1A3670012D386 /* DataModel.swift in Sources */,
 				75B09F6D2A7709D600813913 /* ContentView.swift in Sources */,
 				753ED9652A8D684A009E1BD6 /* PDFDocView.swift in Sources */,
 				755C3B282ABF81F900CE5E6B /* PDFTextView.swift in Sources */,

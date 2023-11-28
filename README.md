@@ -25,14 +25,18 @@ using either AppKit or UIKit.  The four (4) extract targets are
 shown.
 
 ## Current functionality
-The user may manually select from the PDF and copy text to the clipboard. 
+The user selects a file or files from the standard file selection sheet. This
+can be done one or more times.  The user may clear the list of files.
+
+The user may manually select from the PDF and copy text to the clipboard.
+ 
 The user then manually pastes the information into the appropriate 
 extraction target.
 
-## Future functionality
-The user will be able to manually select the text, and then drag the text to
-the appropriate target.
+The user may manually select the text, and then drag the text to
+the appropriate target.  A preview is shown during drag.
 
+## Future functionality
 The user will be able to manually select the text, and then use a button to
 assign the selection to the appropriate target.
 

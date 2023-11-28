@@ -46,13 +46,13 @@ struct ContentView: View {
                         NavigationLink {
                            PDFDocView(doc:  $doc)
                         } label: {
-                           Label("PDF Extraction", systemImage: "doc.text")
+                           Label("Extract from PDF View", systemImage: "doc.text")
                         }
                         Spacer()
                         NavigationLink {
                            PDFTextView(doc: $doc)
                         } label: {
-                           Label("PDF Text", systemImage: "doc.text")
+                           Label("Extract frpm PDF text tokens", systemImage: "doc.text")
                         }
                      }
                      Spacer()
@@ -116,6 +116,7 @@ func getDocuments(urlList: [URL], prevCount: UInt32)
 -> (docs: [MyDocument], failed: [URL]) {
    var resultDocs : [MyDocument] = []
    var failures: [URL] = []
+   var numDocs = UInt32(0)
    for url in urlList {
       var fileAttributes : [DisplayableAttribute] = []
       var pdfAttributes : [DisplayableAttribute] = []
@@ -149,7 +150,8 @@ func getDocuments(urlList: [URL], prevCount: UInt32)
                                                          value: value))
             }
          }
-         let id = prevCount + 1
+         numDocs += 1
+         let id = prevCount + numDocs
          let path = doc.documentURL?.path ?? "No URL"
          let pathLast = doc.documentURL?.lastPathComponent ?? ""
          let pathExt = doc.documentURL?.pathExtension ?? ""
@@ -170,69 +172,7 @@ func getDocuments(urlList: [URL], prevCount: UInt32)
 }
 
 
-// Data model structures
-struct DisplayableAttribute : Hashable {
-   let id : UInt16
-   var name : String
-   var value : String
-}
-struct DocExtract {
-   var docTitle : String = ""
-   var docAuthors : String = ""
-   var docAbstract: String = ""
-   var docAuthorKeywords : String = ""
-}
-struct MyDocument : Identifiable {
-   let id : UInt32
-   var documentPath : String
-   var documentPathLast : String
-   var documentPathExt : String
-   var fileAttributes : [DisplayableAttribute]
-   var pdfAttributes : [DisplayableAttribute]
-   var doc: PDFDocument
-   var docTitle : String = ""
-   var docAuthors : String = ""
-   var docAbstract: String = ""
-   var docAuthorKeywords : String = ""
 
-   init(id: UInt32, documentPath: String, documentPathLast: String,
-        documentPathExt: String, fileAttributes: [DisplayableAttribute],
-        pdfAttributes: [DisplayableAttribute], doc: PDFDocument) {
-      self.id = id
-      self.documentPath = documentPath
-      self.documentPathLast = documentPathLast
-      self.documentPathExt = documentPathExt
-      self.fileAttributes = fileAttributes
-      self.pdfAttributes = pdfAttributes
-      self.doc = doc
-   }
-   init() {
-      self.id = 0
-      self.documentPath = ""
-      self.documentPathLast = ""
-      self.documentPathExt = ""
-      self.fileAttributes = []
-      self.pdfAttributes = []
-      self.doc = PDFDocument()
-   }
-}
-class MyDocList: ObservableObject {
-   @Published var docs : Array<MyDocument>
-   
-   init(docs: [MyDocument]) {
-      self.docs = docs
-   }
-   init() {
-      docs = Array()
-   }
-   
-   func append(docs newDocs: [MyDocument]) {
-      self.docs += newDocs
-   }
-   func clear() {
-      self.docs.removeAll()
-   }
-}
 
 // Previews
 struct ContentView_Previews: PreviewProvider {

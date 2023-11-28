@@ -14,8 +14,8 @@
             filePath = "XplorePDF/ContentView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "246"
-            endingLineNumber = "246"
+            startingLineNumber = "186"
+            endingLineNumber = "186"
             landmarkName = "ContentView_Previews"
             landmarkType = "14">
             <Locations>
@@ -49,52 +49,64 @@
                   endingLineNumber = "246"
                   offsetFromSymbolStart = "4">
                </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "F3FAA05F-923D-4CA4-A8CF-108F0C13490D"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "XplorePDF/PDFDocView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "118"
-            endingLineNumber = "118"
-            landmarkName = "PDFDocView_Previews"
-            landmarkType = "14">
-            <Locations>
                <Location
-                  uuid = "F3FAA05F-923D-4CA4-A8CF-108F0C13490D - 327fe84110d1292a"
+                  uuid = "B5FC26B7-F741-4311-B2C1-C99A20335ABF - 1143febe5ac8df9f"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "one-time initialization function for workDoc"
+                  symbolName = "one-time initialization function for work"
                   moduleName = "XplorePDF"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/jdh/Projects/XCode/XplorePDF/XplorePDF/PDFDocView.swift"
+                  urlString = "file:///Users/jdh/Projects/XCode/XplorePDF/XplorePDF/ContentView.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "118"
-                  endingLineNumber = "118"
-                  offsetFromSymbolStart = "20">
+                  startingLineNumber = "184"
+                  endingLineNumber = "184"
+                  offsetFromSymbolStart = "8">
                </Location>
                <Location
-                  uuid = "F3FAA05F-923D-4CA4-A8CF-108F0C13490D - a7ca3a8249ffd92f"
+                  uuid = "B5FC26B7-F741-4311-B2C1-C99A20335ABF - 9ee7d34beafd03f0"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "XplorePDF.PDFDocView_Previews.workDoc.unsafeMutableAddressor : XplorePDF.MyDocument"
+                  symbolName = "XplorePDF.ContentView_Previews.work.unsafeMutableAddressor : (docs: Swift.Array&lt;XplorePDF.MyDocument&gt;, failed: Swift.Array&lt;Foundation.URL&gt;)"
                   moduleName = "XplorePDF"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/jdh/Projects/XCode/XplorePDF/XplorePDF/PDFDocView.swift"
+                  urlString = "file:///Users/jdh/Projects/XCode/XplorePDF/XplorePDF/ContentView.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "118"
-                  endingLineNumber = "118"
+                  startingLineNumber = "184"
+                  endingLineNumber = "184"
+                  offsetFromSymbolStart = "4">
+               </Location>
+               <Location
+                  uuid = "B5FC26B7-F741-4311-B2C1-C99A20335ABF - 1143febe5ac8d85d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "one-time initialization function for work"
+                  moduleName = "XplorePDF"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jdh/Projects/XCode/XplorePDF/XplorePDF/ContentView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "186"
+                  endingLineNumber = "186"
+                  offsetFromSymbolStart = "8">
+               </Location>
+               <Location
+                  uuid = "B5FC26B7-F741-4311-B2C1-C99A20335ABF - 9ee7d34beafd0432"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "XplorePDF.ContentView_Previews.work.unsafeMutableAddressor : (docs: Swift.Array&lt;XplorePDF.MyDocument&gt;, failed: Swift.Array&lt;Foundation.URL&gt;)"
+                  moduleName = "XplorePDF"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jdh/Projects/XCode/XplorePDF/XplorePDF/ContentView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "186"
+                  endingLineNumber = "186"
                   offsetFromSymbolStart = "4">
                </Location>
             </Locations>
