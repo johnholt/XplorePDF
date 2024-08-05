@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		750E2FB42AF1A3670012D386 /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750E2FB32AF1A3670012D386 /* DataModel.swift */; };
+		752214FA2C52E53F00891103 /* PDFExtractFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 752214F92C52E53F00891103 /* PDFExtractFields.swift */; };
 		753ED9652A8D684A009E1BD6 /* PDFDocView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753ED9642A8D684A009E1BD6 /* PDFDocView.swift */; };
 		755C3B282ABF81F900CE5E6B /* PDFTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755C3B272ABF81F900CE5E6B /* PDFTextView.swift */; };
 		75B09F6B2A7709D600813913 /* XplorePDFApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B09F6A2A7709D600813913 /* XplorePDFApp.swift */; };
@@ -40,6 +41,7 @@
 
 /* Begin PBXFileReference section */
 		750E2FB32AF1A3670012D386 /* DataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
+		752214F92C52E53F00891103 /* PDFExtractFields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFExtractFields.swift; sourceTree = "<group>"; };
 		753ED9642A8D684A009E1BD6 /* PDFDocView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFDocView.swift; sourceTree = "<group>"; };
 		755C3B272ABF81F900CE5E6B /* PDFTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFTextView.swift; sourceTree = "<group>"; };
 		75711DAD2AA7CBC100BA5E80 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
@@ -113,6 +115,7 @@
 				750E2FB32AF1A3670012D386 /* DataModel.swift */,
 				75711DAD2AA7CBC100BA5E80 /* README.md */,
 				753ED9642A8D684A009E1BD6 /* PDFDocView.swift */,
+				752214F92C52E53F00891103 /* PDFExtractFields.swift */,
 				755C3B272ABF81F900CE5E6B /* PDFTextView.swift */,
 				75B09F6E2A7709D700813913 /* Assets.xcassets */,
 				75B09F702A7709D700813913 /* XplorePDF.entitlements */,
@@ -281,6 +284,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				750E2FB42AF1A3670012D386 /* DataModel.swift in Sources */,
+				752214FA2C52E53F00891103 /* PDFExtractFields.swift in Sources */,
 				75B09F6D2A7709D600813913 /* ContentView.swift in Sources */,
 				753ED9652A8D684A009E1BD6 /* PDFDocView.swift in Sources */,
 				755C3B282ABF81F900CE5E6B /* PDFTextView.swift in Sources */,
@@ -449,6 +453,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = XplorePDF/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.reference";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -459,6 +464,7 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportsDocumentBrowser = NO;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
@@ -489,6 +495,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = XplorePDF/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.reference";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -499,6 +506,7 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportsDocumentBrowser = NO;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";

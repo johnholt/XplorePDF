@@ -12,24 +12,52 @@ import NaturalLanguage
 
 struct PDFTextView: View {
    @Binding var doc: MyDocument
-   @State var pageCount = 0
-   @State var pageNum = 0
-   @State var tokenUnit : NLTokenUnit = .word
-   @State var language = NLLanguage.english
-   @State var pageText = ""
-   @State var tagScheme = NLTagScheme.tokenType
-   @State var schemes : Array<NLTagScheme> = []
-   @State var tokens : [MyToken] = []
+   @State private var pageCount = 0
+   @State private var pageNum = 1
+   @State private var tokenUnit : NLTokenUnit = .word
+   @State private var language = NLLanguage.english
+   @State private var pageText = ""
+   @State private var tagScheme = NLTagScheme.tokenType
+   @State private var schemes : Array<NLTagScheme> = []
+   @State private var tokens : [MyToken] = []
+   @State private var selToks = Set<UInt32>()
+   @State private var tokText : String = ""
 
    var body: some View {
       NavigationStack {
          VStack {
+            PDFExtractFields(doc: $doc, extracted: $tokText)
+            HStack {
+               Text("Extracted string:")
+               Button("Get Selected", action: {tokText = makeString()})
+            }
+            TextEditor(text: $tokText)
             HStack {
                Text("There are \(pageCount) pages,")
                Text("and the current page is \(pageNum)")
                Spacer()
+               Button("Previous Page", systemImage: "arrow.left"){
+                  if pageNum > 1 {
+                     pageNum -= 1
+                     getPageText()
+                     tokenize()
+                  }
+               }
+               .labelStyle(.iconOnly)
+               .disabled(pageNum < 2)
+               Button("Next Page", systemImage: "arrow.right") {
+                  if pageNum < pageCount-1 {
+                     pageNum += 1
+                     getPageText()
+                     tokenize()
+                  }
+               }
+               .labelStyle(.iconOnly)
+               .disabled(pageNum >= pageCount - 1)
+               Spacer()
                Text("Primary language is: \(language.rawValue)")
                Spacer()
+               Text("Selected: \(selToks.count)")
             }
             HStack {
                Picker("Token Unit", selection: $tokenUnit) {
@@ -47,19 +75,25 @@ struct PDFTextView: View {
                .onChange(of:tagScheme, {tokenize()} )
             }
             HStack {
-               Text(pageText)
-               Spacer()
                ScrollView {
-                  VStack {
-                     ForEach(tokens) { token in
-                        HStack {
-                           Text(token.text)
-                           Spacer()
-                           Text(token.type)
-                        }
-                     }
-                  }
+                  Text(pageText)
                }
+               Spacer()
+               Table(tokens, selection: $selToks) {
+                  TableColumn("Text", value: \.text)
+                  TableColumn("Type", value: \.type)
+               }
+//               ScrollView {
+//                  VStack {
+//                     ForEach(tokens) { token in
+//                        HStack {
+//                           Text(token.text)
+//                           Spacer()
+//                           Text(token.type)
+//                        }
+//                     }
+//                  }
+//               }
             }
          }
       }
@@ -68,21 +102,32 @@ struct PDFTextView: View {
    
    func viewInit() {
       pageCount = doc.doc.pageCount
-      if let page = doc.doc.page(at: 0) {
-         pageNum = 1
+      getPageText()
+      getSchemes()
+      tokenize()
+   }
+   
+   func getPageText() {
+      let pageNdx = pageNum - 1
+      if let page = doc.doc.page(at: pageNdx) {
          pageText = page.string ?? ""
+      } else {
+         pageText = ""
       }
       language = NLLanguageRecognizer.dominantLanguage(for: pageText)
-                  ?? NLLanguage.english
+                        ?? NLLanguage.english
+      getSchemes()
+   }
+   
+   func getSchemes() {
       let availSchemes = Set(NLTagger.availableTagSchemes(for: tokenUnit,
-                                                 language: language))
+                                                          language: language))
       let interestingSchemes : Set<NLTagScheme> = [NLTagScheme.tokenType,
                                                    NLTagScheme.lexicalClass,
                                                    NLTagScheme.nameType,
                                                    NLTagScheme.nameTypeOrLexicalClass]
       let schemeSet = availSchemes.intersection(interestingSchemes)
       schemes = Array<NLTagScheme>(schemeSet)
-      tokenize()
    }
    
    func tokenize() {
@@ -96,11 +141,21 @@ struct PDFTextView: View {
                            using: {tag, textRange in
          let theText = String(tagger.string![textRange])
          let theTag = tag?.rawValue  ?? "no type"
-         let tok = MyToken(id: ndx, text: theText,
-                           type: theTag)
+         let tok = MyToken(id: ndx, text: theText, type: theTag)
          tokens.append(tok)
          ndx += 1
          return true})
+   }
+   
+   func makeString() -> String {
+      var rslt : String = ""
+      for ndx in selToks.sorted() {
+         rslt.append(tokens[Int(ndx)].text)
+         rslt.append(" ")
+      }
+      rslt.removeLast()
+      selToks.removeAll()
+      return rslt
    }
 }
 

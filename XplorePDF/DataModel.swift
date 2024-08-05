@@ -8,6 +8,8 @@
 import Foundation
 import CoreTransferable
 import PDFKit
+import UniformTypeIdentifiers
+
 
 // Data model structures
 
@@ -27,6 +29,17 @@ struct ExtractSelection : Codable {
    var begin : CGPoint
    var end : CGPoint
    var text : String 
+}
+
+extension ExtractSelection : Transferable {
+   static var transferRepresentation: some TransferRepresentation {
+      CodableRepresentation(for: ExtractSelection.self, contentType: .pdfSelection)
+      ProxyRepresentation(exporting: \.text)
+   }
+}
+
+extension UTType {
+   static var pdfSelection: UTType { UTType(exportedAs: "com.jdholt77.typedpdfselection")}
 }
 
 struct DisplayableAttribute : Hashable {

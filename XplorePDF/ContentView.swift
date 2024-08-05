@@ -52,7 +52,7 @@ struct ContentView: View {
                         NavigationLink {
                            PDFTextView(doc: $doc)
                         } label: {
-                           Label("Extract frpm PDF text tokens", systemImage: "doc.text")
+                           Label("Extract from PDF text tokens", systemImage: "doc.text")
                         }
                      }
                      Spacer()

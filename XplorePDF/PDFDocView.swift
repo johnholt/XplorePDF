@@ -20,116 +20,37 @@ typealias ViewRepContext = UIViewRepresentableContext
 
 struct PDFDocView: View {
    @Binding var doc: MyDocument
-   @State var workTitle = ""
-   @State var workAuthors = ""
-   @State var workAuthorKeywords = ""
-   @State var workAbstract = ""
-   @StateObject var viewTracker = Tracker("updateView")
-   @StateObject var notifyTracker = Tracker("Notify")
-   @StateObject var wrappedSelection: SelectionWrapper = SelectionWrapper()
+   @State private var selected: String = ""
 
    var body: some View {
       NavigationStack {
          VStack(alignment: .leading) {
-            HStack {
-               Text(doc.documentPathLast)
-               Spacer()
-               Button("Update extract", action: updateExtract)
-            }
-            Spacer()
-            TextField("Title", text: $workTitle)
-               .dropDestination(for: String.self) { strings, dest in
-                  let temp = joinStrings(strings)
-                  guard temp != "" else {return false}
-                  workTitle += temp
-                  return true
+            PDFExtractFields(doc: $doc, extracted: $selected)
+            PDFViewRepresentable(doc: doc.doc, selected: $selected)
+               .draggable(selected) {
+                  Text(selected)
                }
-            TextField("Authors", text: $workAuthors)
-               .dropDestination(for: String.self) { strings, dest in
-                  let temp = joinStrings(strings)
-                  guard temp != "" else {return false}
-                  workAuthors += temp
-                  return true
-               }
-            TextField("Author Keywords", text: $workAuthorKeywords)
-               .dropDestination(for: String.self) { strings, dest in
-                  let temp = joinStrings(strings)
-                  guard temp != "" else {return false}
-                  workAuthorKeywords += temp
-                  return true
-               }
-            Text("Abstract:")
-            TextEditor(text: $workAbstract)
-               .padding(2)
-               .border(Color.cyan, width: 2)
-               .dropDestination(for: String.self) { strings, dest in
-                  let temp = joinStrings(strings)
-                  guard temp != "" else {return false}
-                  workAbstract += temp
-                  return true
-               }
-            PDFViewRepresentable(doc: doc.doc, viewTracker: viewTracker,
-                                 notifyTracker: notifyTracker,
-                                 wrappedSelection: wrappedSelection)
-            .draggable(getSelected4Drop()) {
-               Text(getSelected4Preview())
-            }
 #if os(macOS)
-            .copyable(copySelected2Array())
+               .copyable(Array(arrayLiteral: selected))
 #endif
          }
-      }.onAppear(perform: {getExtracted()})
-   }
-   
-   //Helpers
-   func getExtracted() {
-      workTitle = doc.docTitle
-      workAuthors = doc.docAuthors
-      workAuthorKeywords = doc.docAuthorKeywords
-      workAbstract = doc.docAbstract
-   }
-   func updateExtract() -> Void {
-      doc.docTitle = workTitle
-      doc.docAuthors = workAuthors
-      doc.docAuthorKeywords = workAuthorKeywords
-      doc.docAbstract = workAbstract
-   }
-   func copySelected2Array() -> [String] {
-      Array(arrayLiteral: wrappedSelection.selection?.string ?? "")
-   }
-   func getSelected4Drop() -> String {
-      wrappedSelection.selection?.string ?? ""
-   }
-   func getSelected4Preview() -> String {
-      wrappedSelection.selection?.string ?? "No Selection"
-   }
-   func joinStrings(_ strings: [String]) -> String {
-      guard !strings.isEmpty else {return ""}
-      var target = ""
-      for str in strings {
-         target += str
       }
-      return target
    }
 }
 
 // Wrapper for the PDFKit PDFView
 struct PDFViewRepresentable: ViewRepresentable {
    let doc: PDFDocument
-   @ObservedObject var viewTracker : Tracker
-   @ObservedObject var notifyTracker: Tracker
-   @ObservedObject var wrappedSelection: SelectionWrapper
+   var selected : Binding<String>
    
    // Class to coordinate for ViewRepresentable and the wrapped NSView or UIView
    // This would become the view delegate if we needed one
    class Coordinator : NSObject {
-      var wrappedSelection : SelectionWrapper
+      var selected: Binding<String>
       var view: PDFView? = nil
       var protoObject : NSObjectProtocol? = nil
-      var notifyTracker: Tracker
-      init(_ ws: SelectionWrapper, tracker nt: Tracker) {
-         wrappedSelection = ws
-         notifyTracker = nt
+      init(_ s : Binding<String>) {
+         selected = s
       }
       // add a notification receiver
       func addNoteRecvr(_ view: PDFView) -> Void {
@@ -147,15 +68,12 @@ struct PDFViewRepresentable: ViewRepresentable {
       // Process the notification, which must be PDFViewSelectionChanged
       func process(_ note: Notification) -> Void {
          if let view = note.object as? PDFView {
-            notifyTracker.log(view.currentSelection?.string ?? "No text")
-            if wrappedSelection.selection != view.currentSelection {
-               wrappedSelection.selection = view.currentSelection
+            if selected.wrappedValue != view.currentSelection?.string {
+               selected.wrappedValue = view.currentSelection?.string ?? ""
             }
-         } else {
-            notifyTracker.log("Not from PDFView")
          }
       }
-   }
+   } // end of Coordinator class definition
 
    // Platform specific interface shim
 #if os(macOS)
@@ -179,8 +97,9 @@ struct PDFViewRepresentable: ViewRepresentable {
       coordinator.removeNoteRecvr()
    }
 #endif
+   // functions
    func makeCoordinator() -> Coordinator {
-      return Coordinator(wrappedSelection, tracker: notifyTracker)
+      return Coordinator(selected)
    }
    
    // Generic helpers for UIkit or AppKit Views for SwiftUI compatibility
@@ -193,33 +112,13 @@ struct PDFViewRepresentable: ViewRepresentable {
    }
    func updateView(_ view: PDFView,
                    ctx: ViewRepContext<PDFViewRepresentable>) {
-      // things to do for updates?
-      viewTracker.log("updateView called")
+      // things to do for updates.  In this case, a PDFView does not have any
+      // properties that would be controlled in other parts of the UI under
+      // SwiftUI control
    }
-   
-}
-
-
-// Inspection class for learning how ViewRepresentatable works with SwiftUI
-class Tracker : ObservableObject {
-   var name: String
-   var called = 0
-   var trace: [String] = []
-   
-   init(_ n: String) {
-      name = n
-   }
-   func log(_ activity: String) -> Void {
-      self.called += 1
-      self.trace.append("\(called) " + activity)
-   }
+   // End generic SwiftUI helpers for UIKit/AppKit views
 }
       
-// ObservableObject wrapper for the PDFSelection
-class SelectionWrapper : NSObject, ObservableObject {
-   @Published var selection : PDFSelection? = nil
-}
-
 // Gettiing data into Preview the old way
 struct PDFDocView_Previews: PreviewProvider {
    static var previews: some View {

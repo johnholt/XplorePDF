@@ -20,66 +20,6 @@
             landmarkType = "14">
             <Locations>
                <Location
-                  uuid = "B5FC26B7-F741-4311-B2C1-C99A20335ABF - 1143febe5ac8d799"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "one-time initialization function for work"
-                  moduleName = "XplorePDF"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/jdh/Projects/XCode/XplorePDF/XplorePDF/ContentView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "246"
-                  endingLineNumber = "246"
-                  offsetFromSymbolStart = "8">
-               </Location>
-               <Location
-                  uuid = "B5FC26B7-F741-4311-B2C1-C99A20335ABF - 9ee7d34beafd0bf6"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "XplorePDF.ContentView_Previews.work.unsafeMutableAddressor : (docs: Swift.Array&lt;XplorePDF.MyDocument&gt;, failed: Swift.Array&lt;Foundation.URL&gt;)"
-                  moduleName = "XplorePDF"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/jdh/Projects/XCode/XplorePDF/XplorePDF/ContentView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "246"
-                  endingLineNumber = "246"
-                  offsetFromSymbolStart = "4">
-               </Location>
-               <Location
-                  uuid = "B5FC26B7-F741-4311-B2C1-C99A20335ABF - 1143febe5ac8df9f"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "one-time initialization function for work"
-                  moduleName = "XplorePDF"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/jdh/Projects/XCode/XplorePDF/XplorePDF/ContentView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "184"
-                  endingLineNumber = "184"
-                  offsetFromSymbolStart = "8">
-               </Location>
-               <Location
-                  uuid = "B5FC26B7-F741-4311-B2C1-C99A20335ABF - 9ee7d34beafd03f0"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "XplorePDF.ContentView_Previews.work.unsafeMutableAddressor : (docs: Swift.Array&lt;XplorePDF.MyDocument&gt;, failed: Swift.Array&lt;Foundation.URL&gt;)"
-                  moduleName = "XplorePDF"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/jdh/Projects/XCode/XplorePDF/XplorePDF/ContentView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "184"
-                  endingLineNumber = "184"
-                  offsetFromSymbolStart = "4">
-               </Location>
-               <Location
                   uuid = "B5FC26B7-F741-4311-B2C1-C99A20335ABF - 1143febe5ac8d85d"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
@@ -91,8 +31,7 @@
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "186"
-                  endingLineNumber = "186"
-                  offsetFromSymbolStart = "8">
+                  endingLineNumber = "186">
                </Location>
                <Location
                   uuid = "B5FC26B7-F741-4311-B2C1-C99A20335ABF - 9ee7d34beafd0432"
@@ -106,8 +45,7 @@
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "186"
-                  endingLineNumber = "186"
-                  offsetFromSymbolStart = "4">
+                  endingLineNumber = "186">
                </Location>
             </Locations>
          </BreakpointContent>
